@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View,Image } from 'react-native';
+import { StyleSheet, Text, View,Image,FlatList } from 'react-native';
 import {Card} from 'react-native-paper';
 
 const Home = ()=>{
@@ -8,18 +8,27 @@ const Home = ()=>{
         {id:2,name:"Shaheer",position:"React Developer",path:"https://images.unsplash.com/photo-1541647376583-8934aaf3448a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"},
         {id:3,name:"Saboor",position:"Engineer",path:"https://images.unsplash.com/photo-1547624643-3bf761b09502?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"},
         {id:4,name:"Mansoor",position:"Software Develoepr",path:"https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"},
-        {id:5,name:"Hamza Iqbal",position:"JS developer",path:"https://images.unsplash.com/photo-1500048993953-d23a436266cf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"}
+        {id:5,name:"Hamza Iqbal",position:"JS developer",path:"https://images.unsplash.com/photo-1500048993953-d23a436266cf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"},
+        {id:6,name:"Hamza Iqbal",position:"JS developer",path:"https://images.unsplash.com/photo-1500048993953-d23a436266cf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"},
+        {id:7,name:"Hamza Iqbal",position:"JS developer",path:"https://images.unsplash.com/photo-1500048993953-d23a436266cf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"},
+        {id:8,name:"Hamza Iqbal",position:"JS developer",path:"https://images.unsplash.com/photo-1500048993953-d23a436266cf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"},
+        {id:9,name:"Hamza Iqbal",position:"JS developer",path:"https://images.unsplash.com/photo-1500048993953-d23a436266cf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"},
+        {id:10,name:"Hamza Iqbal",position:"JS developer",path:"https://images.unsplash.com/photo-1500048993953-d23a436266cf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"},
+        {id:11,name:"Hamza Iqbal",position:"JS developer",path:"https://images.unsplash.com/photo-1500048993953-d23a436266cf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"},
+        {id:12,name:"Hamza Iqbal",position:"JS developer",path:"https://images.unsplash.com/photo-1500048993953-d23a436266cf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"},
+        {id:13,name:"Hamza Iqbal",position:"JS developer",path:"https://images.unsplash.com/photo-1500048993953-d23a436266cf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"},
+        {id:14,name:"Hamza Iqbal",position:"JS developer",path:"https://images.unsplash.com/photo-1500048993953-d23a436266cf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"},
     ]
-    const personList = data.map((person)=>{
+    const personList = ((item)=>{
         return(
-        <Card style = {styles.mycard} key={person.id}>
+        <Card style = {styles.mycard}>
         <View style={styles.myView}>
         <Image style={{width:50,height:50,borderRadius:25}}
-        source={{uri:person.path}} />
+        source={{uri:item.path}} />
         
         <View style={{marginLeft:15}}>
-        <Text style = {styles.mytext}>{person.name}</Text>
-        <Text>{person.position}</Text>
+        <Text style = {styles.mytext}>{item.name}</Text>
+        <Text>{item.position}</Text>
         </View>
 
         </View>
@@ -27,13 +36,17 @@ const Home = ()=>{
        </Card>
         )
     })
-
     return(
         <View>
-            {personList}
-        </View>
-       
+            <FlatList
+                data = {data}
+                renderItem={({item})=>{
+                   return personList(item)
 
+                }}
+                keyExtractor={item=>'${item.id}'}
+            />
+        </View>
     )
 }
 
