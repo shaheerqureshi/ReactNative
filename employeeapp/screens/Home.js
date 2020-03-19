@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View,Image,FlatList } from 'react-native';
-import {Card} from 'react-native-paper';
+import {Card,FAB} from 'react-native-paper';
 
 const Home = ()=>{
     const data = [
@@ -46,6 +46,13 @@ const Home = ()=>{
                 }}
                 keyExtractor={item=>'${item.id}'}
             />
+            <FAB
+            style={styles.fab}
+            small={false}
+            icon="plus"
+            theme={{colors:{accent:"blue"}}}
+            onPress={()=> console.log("pressed")}
+            />
         </View>
     )
 }
@@ -64,6 +71,12 @@ const styles = StyleSheet.create({
     },
     mytext1:{
         fontSize:9,
+    },
+    fab:{
+        position:"absolute",
+        margin:16,
+        right:0,
+        bottom:0
     }
 })
 export default Home
