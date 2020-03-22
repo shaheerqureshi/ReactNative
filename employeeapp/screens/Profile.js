@@ -4,7 +4,10 @@ import { LinearGradient } from 'expo-linear-gradient';
 import {Title,Card,Button} from 'react-native-paper';
 import { Ionicons,MaterialIcons,Entypo } from '@expo/vector-icons';
 
-const Profile = () =>{
+const Profile = (props) =>{
+
+    const {id,name,position,path} = props.route.params.item;
+
     const openDial = () =>{
         if (Platform.OS === "android") {
             Linking.openURL("tel:12345")
@@ -22,14 +25,14 @@ const Profile = () =>{
         <View style={styles.myView}>
         <Image
             style={{width:140,height:140,borderRadius:140/2}}
-            source={{uri:"https://images.unsplash.com/photo-1542080681-b52d382432af?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"}}
+            source={{uri:path}}
         />
         </View>
         <View style={{alignItems:'center',margin:15}}>
             <Title>
-                Shaheer QUreshi
+                {name}
             </Title>
-            <Text style={{fontSize:15}}>React Developer</Text>
+             <Text style={{fontSize:15}}>{position}</Text>
         </View>
 
         <Card style={styles.myCard}  onPress={()=>{
