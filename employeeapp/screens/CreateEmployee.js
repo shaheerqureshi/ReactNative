@@ -46,24 +46,36 @@ const CreateEmployee = () =>{
                 onChangeText={Text =>setsalary(text)}
             />
             <Button
+            style={styles.modalButtonView}
                 icon="upload"
                 mode='contained'
+                theme = {theme}
                 onPress={()=>setModal(true)}
                 >
-                    Press Me
+                    Upload Image
+            </Button>
+            <Button
+            style={styles.modalButtonView}
+                icon="content-save"
+                mode='contained'
+                theme = {theme}
+                onPress={()=>setModal(true)}
+                >
+                    Save
             </Button>
             <Modal
                 animationType='slide'
-                transparent={false}
+                transparent={true}
                 visible={modal}
                 onRequestClose={()=>setModal(false)}
                 >
-                    <View>
+                    <View style = {styles.modalView}>
                         <View style={styles.modalButtonView}>
-                        <Button icon="camera" onPress={()=>setModal(false)}>Cancel</Button>        
-                        <Button icon="camera" onPress={()=>setModal(false)}>Cancel</Button>
+                        <Button  theme = {theme} icon="camera" mode='contained' onPress={()=>console.log("pressed")}>Camera</Button>        
+                        <Button  theme = {theme} icon="image-area" mode='contained' onPress={()=>console.log("pressed")}>Gallery</Button>
+                        
                         </View>
-                    <Button icon="camera" onPress={()=>setModal(false)}>Cancel</Button>
+                    <Button icon="cancel" onPress={()=>setModal(false)}>Cancel</Button>
             
                     </View>
 
@@ -85,7 +97,16 @@ const styles = StyleSheet.create({
         margin:5
     },
     modalButtonView:{
-        flexDirection:'row'
+        flexDirection:'row',
+        justifyContent:"space-around",
+        padding:4,
+        margin:10
+    },
+    modalView:{
+        position:'absolute',
+        bottom:2,
+        width:'100%',
+        backgroundColor:'#ffffff'
     }
 })
 export default CreateEmployee
