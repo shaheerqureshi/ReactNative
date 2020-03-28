@@ -6,7 +6,7 @@ import { Ionicons,MaterialIcons,Entypo } from '@expo/vector-icons';
 
 const Profile = (props) =>{
 
-    const {id,name,position,path} = props.route.params.item;
+    const {_id,name,email,phone,pic,salary} = props.route.params.item;
 
     const openDial = () =>{
         if (Platform.OS === "android") {
@@ -25,14 +25,14 @@ const Profile = (props) =>{
         <View style={styles.myView}>
         <Image
             style={{width:140,height:140,borderRadius:140/2}}
-            source={{uri:path}}
+            source={{uri:pic}}
         />
         </View>
         <View style={{alignItems:'center',margin:15}}>
             <Title>
                 {name}
             </Title>
-             <Text style={{fontSize:15}}>{position}</Text>
+             <Text style={{fontSize:15}}>{email}</Text>
         </View>
 
         <Card style={styles.myCard}  onPress={()=>{
@@ -40,7 +40,7 @@ const Profile = (props) =>{
         }}>
             <View style={styles.cardContent}>
             <MaterialIcons name="email" size={32} color="#006aff" />
-            <Text style={styles.myText}>shaheerqureshi334@gmail.com</Text>
+    <Text style={styles.myText}>{email}</Text>
             </View>
         </Card>
         <Card style={styles.myCard}  onPress={()=>{
@@ -48,13 +48,13 @@ const Profile = (props) =>{
             }}>
             <View style={styles.cardContent}>
             <MaterialIcons name="phone" size={32} color="#006aff" />
-            <Text style={styles.myText}>0333-1576059</Text>
+            <Text style={styles.myText}>{phone}</Text>
             </View>
         </Card>
         <Card style={styles.myCard}>
             <View style={styles.cardContent}>
             <MaterialIcons name="attach-money" size={32} color="#006aff" />
-            <Text style={styles.myText}>AED 800,000</Text>
+            <Text style={styles.myText}>{salary}</Text>
             </View>
         </Card>
 

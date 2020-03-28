@@ -14,7 +14,7 @@ const CreateEmployee = ({navigation}) =>{
     const [modal,setModal] = useState(false)
 
     const submitData= () =>{
-        fetch("http://2559c492.ngrok.io/send-data",{
+        fetch("http:/f8af94ac.ngrok.io/send-data",{
             method:'post',
             headers:{
                 'Content-Type':'application/json'
@@ -24,7 +24,7 @@ const CreateEmployee = ({navigation}) =>{
                 email,
                 phone,
                 salary,
-                pic,
+                pic
             })
         }).then(res=>res.json())
         .then(data=>{
