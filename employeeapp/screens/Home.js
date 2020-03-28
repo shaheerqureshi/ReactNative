@@ -1,5 +1,5 @@
 import React,{useEffect,useState} from 'react';
-import { StyleSheet, Text, View,Image,FlatList,ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View,Image,FlatList,ActivityIndicator,Alert } from 'react-native';
 import {Card,FAB} from 'react-native-paper';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack'
@@ -7,13 +7,19 @@ import { createStackNavigator } from '@react-navigation/stack'
 const Home = ({navigation})=>{
     const [data,setData] = useState([])
     const [loading,setLoading] = useState(true)
-    useEffect(()=>{
-        fetch("http://f8af94ac.ngrok.io")
+
+    const fetchData = () =>{
+        fetch("http://9e80a8df.ngrok.io")
         .then(res=>res.json())
         .then(results=>{
             setData(results)
             setLoading(false)
+        }).catch(err=>{
+            Alert.alert("Oops something went wrong")
         })
+    }
+    useEffect(()=>{
+       fetchData()
     },[])
     // const data = [
     //     {_id:"144",name:"Ayesha",position:"CEO",path:"https://images.unsplash.com/photo-1542080681-b52d382432af?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"},
@@ -60,6 +66,8 @@ const Home = ({navigation})=>{
 
                 }}
                 keyExtractor={item=>{item._id}}
+                onRefresh = {()=>fetchData()}
+                refreshing = {loading}
             />
         }
             <FAB

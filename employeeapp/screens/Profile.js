@@ -10,9 +10,9 @@ const Profile = (props) =>{
 
     const openDial = () =>{
         if (Platform.OS === "android") {
-            Linking.openURL("tel:12345")
+            Linking.openURL(`tel:${phone}`)
         }else{
-            Linking.openURL("telprompt:23565")
+            Linking.openURL(`telprompt:${phone}`)
         }
     }
     return(
@@ -36,7 +36,7 @@ const Profile = (props) =>{
         </View>
 
         <Card style={styles.myCard}  onPress={()=>{
-            Linking.openURL("mailto:shaheerqureshi334@gmail.com")
+            Linking.openURL(`mailto:${email}`)
         }}>
             <View style={styles.cardContent}>
             <MaterialIcons name="email" size={32} color="#006aff" />
