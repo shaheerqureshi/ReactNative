@@ -77,7 +77,9 @@ const Profile = (props) =>{
         </Card>
 
         <View style={{flexDirection:'row',justifyContent:'space-around',padding:15}}>
-        <Button theme={theme} icon="account-edit" mode="contained" onPress={() => console.log('Pressed')}>Edit</Button>
+        <Button theme={theme} icon="account-edit" mode="contained" onPress={() => 
+                                                                    props.navigation.navigate("Create",
+                                                                    {_id,name,email,phone,pic,salary})}>Edit</Button>
         <Button theme={theme} icon="delete" mode="contained" onPress={() => deleteEmployee()}>Delete Employee</Button>
 
         </View>

@@ -5,13 +5,37 @@ import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 
-const CreateEmployee = ({navigation}) =>{
-    const [name,setName] = useState("")
-    const [phone,setPhone] = useState("")
-    const [email,setemail] = useState("")
-    const [salary,setsalary] = useState("")
-    const [pic,setPicture] = useState("")
+const CreateEmployee = ({navigation,route}) =>{
+    const getDetails = (type) =>{
+        if(route.params){
+            switch (type) {
+                case "name":
+                    return route.params.name
+                case "phone":
+                    return route.params.phone
+                case "email":
+                    return route.params.email
+                case "salary":
+                    return route.params.salary
+                case "pic":
+                    return route.params.pic
+                
+            
+                default:
+                    break;
+            }
+        }else{
+
+        }
+    }
+   
+    const [name,setName] = useState(getDetails("name"))
+    const [phone,setPhone] = useState(getDetails("phone"))
+    const [email,setemail] = useState(getDetails("email"))
+    const [salary,setsalary] = useState(getDetails("salary"))
+    const [pic,setPicture] = useState(getDetails("pic"))
     const [modal,setModal] = useState(false)
+    const [enableShift,setEnableShift] = useState(false)
 
     const submitData= () =>{
         fetch("http://9e80a8df.ngrok.io/send-data",{
@@ -29,6 +53,28 @@ const CreateEmployee = ({navigation}) =>{
         }).then(res=>res.json())
         .then(data=>{
             Alert.alert(`${data.name} is Saved Successfully`)
+            navigation.navigate("Home")
+        }).catch(err=>{
+            Alert.alert("Oops something went wrong")
+        })
+    }
+    const updateDetains = () =>{
+        fetch("http://9e80a8df.ngrok.io/post",{
+            method:'post',
+            headers:{
+                'Content-Type':'application/json'
+            },
+            body:JSON.stringify({
+                id:route.params._id,
+                name,
+                email,
+                phone,
+                salary,
+                pic
+            })
+        }).then(res=>res.json())
+        .then(data=>{
+            Alert.alert(`${data.name} is updated Successfully`)
             navigation.navigate("Home")
         }).catch(err=>{
             Alert.alert("Oops something went wrong")
@@ -96,14 +142,16 @@ const CreateEmployee = ({navigation}) =>{
         })
     }
     return(
-        <View style={StyleSheet.root}>
-            <KeyboardAvoidingView>
+        <KeyboardAvoidingView behavior="position" style={StyleSheet.root} enabled={enableShift}>
+        <View>
+            
             <TextInput
                 style={styles.inputStyle}
                 label='name'
                 value={name}
                 mode='outlined'
                 theme = {theme}
+                onFocus = {()=>setEnableShift(false)}
                 onChangeText={text =>setName(text)}
             />
             <TextInput
@@ -112,6 +160,7 @@ const CreateEmployee = ({navigation}) =>{
                 value={email}
                 mode='outlined'
                 theme = {theme}
+                onFocus = {()=>setEnableShift(false)}
                 onChangeText={text => setemail(text)}
             />
             <TextInput
@@ -121,6 +170,7 @@ const CreateEmployee = ({navigation}) =>{
                 mode='outlined'
                 theme = {theme}
                 keyboardType="number-pad"
+                onFocus = {()=>setEnableShift(false)}
                 onChangeText={text =>setPhone(text)}
             />
             <TextInput
@@ -129,7 +179,7 @@ const CreateEmployee = ({navigation}) =>{
                 value={salary}
                 mode='outlined'
                 theme = {theme}
-                
+                onFocus = {()=>setEnableShift(true)}
                 onChangeText={text =>setsalary(text)}
             />
             <Button
@@ -141,6 +191,17 @@ const CreateEmployee = ({navigation}) =>{
                 >
                     Upload Image
             </Button>
+            {route.params?
+             <Button
+             style={styles.modalButtonView}
+                 icon="content-save"
+                 mode='contained'
+                 theme = {theme}
+                 onPress={()=> updateDetains()}
+                 >
+                     Update
+             </Button>
+            :
             <Button
             style={styles.modalButtonView}
                 icon="content-save"
@@ -150,6 +211,9 @@ const CreateEmployee = ({navigation}) =>{
                 >
                     Save
             </Button>
+               
+            }
+            
             <Modal
                 animationType='slide'
                 transparent={true}
@@ -167,8 +231,9 @@ const CreateEmployee = ({navigation}) =>{
                     </View>
 
                 </Modal>
-                </KeyboardAvoidingView>
+               
         </View>
+        </KeyboardAvoidingView>
     )
 }
 const theme= {
